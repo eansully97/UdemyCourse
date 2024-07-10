@@ -1,22 +1,13 @@
+#pragma once
 
 #include "Player/AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
-
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
-}
-
-void AAuraPlayerController::PlayerTick(float DeltaTime)
-{
-	Super::PlayerTick(DeltaTime);
-
-	CursorTrace();
-
-
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -24,9 +15,10 @@ void AAuraPlayerController::BeginPlay()
 	Super::BeginPlay();
 	check(AuraContext);
 
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(AuraContext, 0);
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(AuraContext, 0);
+	}
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -37,16 +29,22 @@ void AAuraPlayerController::BeginPlay()
 	SetInputMode(InputModeData);
 }
 
-void AAuraPlayerController::SetupInputComponent()
+void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
-	Super::SetupInputComponent();
+	Super::PlayerTick(DeltaTime);
 
-	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
-
+	CursorTrace();
 
 }
+void AAuraPlayerController::SetupInputComponent()
+{
+		Super::SetupInputComponent();
+
+		UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	}
+
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
@@ -121,3 +119,5 @@ void AAuraPlayerController::CursorTrace()
 		}
 	}
 }
+
+

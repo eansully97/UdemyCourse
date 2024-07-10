@@ -1,13 +1,13 @@
 #pragma once
+
+#include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
-
 
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class IEnemyInterface;
-
 
 UCLASS(Abstract)
 class AURA_API AAuraPlayerController : public APlayerController
