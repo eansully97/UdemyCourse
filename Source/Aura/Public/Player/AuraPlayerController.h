@@ -1,6 +1,4 @@
-
 #pragma once
-#include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
@@ -10,14 +8,11 @@ class UInputAction;
 struct FInputActionValue;
 class IEnemyInterface;
 
-/**
- *
- */
+
 UCLASS(Abstract)
 class AURA_API AAuraPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
 
 public:
 	AAuraPlayerController();

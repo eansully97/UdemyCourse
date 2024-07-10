@@ -1,8 +1,9 @@
 
 #include "Player/AuraPlayerController.h"
-#include "../../../../../../Program Files/Epic Games/UE_5.3/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h"
-#include "../../../../../../Program Files/Epic Games/UE_5.3/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputComponent.h"
-#include <Interaction/EnemyInterface.h>
+#include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
+#include "Interaction/EnemyInterface.h"
+
 
 AAuraPlayerController::AAuraPlayerController()
 {
@@ -24,11 +25,6 @@ void AAuraPlayerController::BeginPlay()
 	check(AuraContext);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	if (Subsystem)
-	{
-		Subsystem->AddMappingContext(AuraContext, 0);
-	}
-
 	check(Subsystem);
 	Subsystem->AddMappingContext(AuraContext, 0);
 
@@ -75,50 +71,53 @@ void AAuraPlayerController::CursorTrace()
 	if (!CursorHit.bBlockingHit) return;
 
 	LastActor = ThisActor;
-	ThisActor = CursorHit.GetActor();
+	ThisActor == Cast<IEnemyInterface>(CursorHit.GetActor());
 
 	/**
-	* Line Trace From cursor, there are several scenarios:
-	*  A. LastActor is null && This Actor is null
-	*		- Do Nothing.
-	*  B. LastActor is null && This Actor is valid
-	*		- Highlight ThisActor
-	*  C. LastActor is Valid && This Actor is null
-	*		- UnHighlight LastActor
-	*  D. Both Actor are valid, but Last Actor != ThisActor
-	*		-UnHighlight LastActor, and Highlight ThisActor
-	*  E. Both Actors are valid and are the same
-	*/
+	 * Line trace from cursor. There are several scenarios:
+	 *  A. LastActor is null && ThisActor is null
+	 *		- Do nothing
+	 *	B. LastActor is null && ThisActor is valid
+	 *		- Highlight ThisActor
+	 *	C. LastActor is valid && ThisActor is null
+	 *		- UnHighlight LastActor
+	 *	D. Both actors are valid, but LastActor != ThisActor
+	 *		- UnHighlight LastActor, and Highlight ThisActor
+	 *	E. Both actors are valid, and are the same actor
+	 *		- Do nothing
+	 */
 
 	if (LastActor == nullptr)
 	{
 		if (ThisActor != nullptr)
 		{
+			// Case B
 			ThisActor->HighlightActor();
 		}
-
 		else
 		{
-
+			// Case A - both are null, do nothing
 		}
 	}
-	else
+	else // LastActor is valid
 	{
 		if (ThisActor == nullptr)
 		{
+			// Case C
 			LastActor->UnHighlightActor();
 		}
-		else
+		else // both actors are valid
 		{
 			if (LastActor != ThisActor)
 			{
+				// Case D
 				LastActor->UnHighlightActor();
 				ThisActor->HighlightActor();
 			}
 			else
 			{
-
+				// Case E - do nothing
 			}
+		}
 	}
-}
 }
