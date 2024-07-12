@@ -1,13 +1,14 @@
 #pragma once
 
-#include "CoreMinimal.h"
+
 #include "Character/AuraCharacterBase.h"
 #include "Interaction/EnemyInterface.h"
+#include "CoreMinimal.h"
 #include "AuraEnemy.generated.h"
 
-/**
- * 
- */
+
+
+
 UCLASS()
 class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 {
@@ -25,4 +26,10 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
+
+
+private:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Level = 1;
 };
