@@ -26,6 +26,8 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
+
 protected:
 
 	UPROPERTY(VisibleAnywhere)
@@ -37,7 +39,7 @@ protected:
 private:
 
 
-	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRepLevel);
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_Level);
 	int32 Level = 1;
 
 	UFUNCTION()

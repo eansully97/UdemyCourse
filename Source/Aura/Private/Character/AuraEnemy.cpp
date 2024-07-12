@@ -32,6 +32,11 @@ void AAuraEnemy::UnHighlightActor()
 
 }
 
+int32 AAuraEnemy::GetPlayerLevel()
+{
+	return Level;
+}
+
 void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
@@ -43,4 +48,9 @@ void AAuraEnemy::InitAbilityActorInfo()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+}
+
+void AAuraEnemy::OnRep_Level(int32 OldLevel)
+{
+
 }

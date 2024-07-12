@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Character/AuraCharacterBase.h"
 #include "Interaction/EnemyInterface.h"
 #include "CoreMinimal.h"
@@ -23,13 +22,21 @@ public:
 	virtual void UnHighlightActor() override;
 	//End Enemy Interface//
 
+	// COMBAT INTERFACE //
+
+	virtual int32 GetPlayerLevel() override;
+
+	// END COMBAT INTERFACE //
+
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
 
 
-private:
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
 	int32 Level = 1;
+
+	UFUNCTION()
+	void OnRep_Level(int32 OldLevel);
 };
