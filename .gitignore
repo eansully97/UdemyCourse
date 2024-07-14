@@ -8,6 +8,7 @@ Build
 .vs
 *.VC.db
 *.opensdf
+*.opendb
 *.sdf
 *.sln
 *.suo
