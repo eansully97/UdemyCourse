@@ -1,4 +1,4 @@
-// Ean
+// up to date
 
 
 #include "AbilitySystem/ModMagCalc/MMC_MaxHealth.h"

@@ -2,7 +2,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/PlayerState.h"
 #include "AuraPlayerState.generated.h"
@@ -22,7 +21,7 @@ public:
 	AAuraPlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UAttributeSet* GetAttributeSet() const { return AttributeSet;}
+	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 

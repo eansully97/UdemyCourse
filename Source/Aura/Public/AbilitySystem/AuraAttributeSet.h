@@ -1,4 +1,4 @@
-
+// up to date
 #pragma once
 
 #include "CoreMinimal.h"
@@ -185,7 +185,6 @@ public:
 	void OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const;
 
 private:
-
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 
 	

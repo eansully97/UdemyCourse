@@ -1,4 +1,4 @@
-// Ean
+// up to date
 
 
 #pragma once
@@ -28,6 +28,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
 	int32 Level = 1;
 
