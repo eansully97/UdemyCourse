@@ -29,6 +29,7 @@ public:
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	
 	// COMBAT INTERFACE //
+	UFUNCTION(BlueprintCallable)
 	virtual void Die() override;
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;
 	virtual bool IsDead_Implementation() const override;
@@ -65,7 +66,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName TailSocketName;
-
+	
 	bool bDead = false;
 
 	UPROPERTY()
