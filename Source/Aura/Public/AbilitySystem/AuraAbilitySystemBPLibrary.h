@@ -11,6 +11,8 @@
 class UAbilitySystemComponent;
 class UAttributeMenuWidgetController;
 class UOverlayWidgetController;
+class USpellMenuWidgetController;
+struct FWidgetControllerParams;
 /**
  * 
  */
@@ -21,10 +23,16 @@ class AURA_API UAuraAbilitySystemBPLibrary : public UBlueprintFunctionLibrary
 public:
 
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemBPLibrary|WidgetController")
+	static bool MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, AAuraHUD*& OutAuraHUD);
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemBPLibrary|WidgetController")
 	static UOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemBPLibrary|WidgetController")
 	static UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemBPLibrary|WidgetController")
+	static USpellMenuWidgetController* GetSpellMenuWidgetController(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemBPLibrary|CharacterClassDefaults")
 	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC);
