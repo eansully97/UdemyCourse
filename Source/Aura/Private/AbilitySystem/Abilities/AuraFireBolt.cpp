@@ -70,7 +70,7 @@ void UAuraFireBolt::SpawnProjectiles(const FVector& ProjectileTargetLocation, co
 
 	
 	const FVector Forward = Rotation.Vector();
-	const int32 EffectiveNumProjectiles = FMath::Min(NumProjectiles, GetAbilityLevel());
+	const int32 EffectiveNumProjectiles = FMath::Min(NumProjectiles, MaxNumProjectile);
 	TArray<FRotator> Rotations = UAuraAbilitySystemBPLibrary::EvenlySpacedRotators(Forward, FVector::UpVector, ProjectileSpread, EffectiveNumProjectiles);
 
 	for (const FRotator& Rot : Rotations)
