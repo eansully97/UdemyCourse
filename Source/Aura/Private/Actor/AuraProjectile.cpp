@@ -51,33 +51,27 @@ void AAuraProjectile::OnHit()
 {
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-	if (LoopingSoundComponent)
-	{
-		LoopingSoundComponent->Stop();
-		LoopingSoundComponent->DestroyComponent();
-	}
+	if (LoopingSoundComponent) LoopingSoundComponent->Stop();
 	bHit = true;
 }
 
 void AAuraProjectile::Destroyed()
 {
-	if (LoopingSoundComponent)
+	if (!bHit && !HasAuthority())
 	{
-		LoopingSoundComponent->Stop();
-		LoopingSoundComponent->DestroyComponent();
+		OnHit();
 	}
-	if (!bHit && !HasAuthority()) OnHit();
 	Super::Destroyed();
 }
 
 void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if (DamageEffectParams.SourceAbilitySystemComponent == nullptr) return;
 	AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();
 	if (SourceAvatarActor == OtherActor) return;
 	if (!UAuraAbilitySystemBPLibrary::IsNotFriend(SourceAvatarActor, OtherActor)) return;
 	if (!bHit) OnHit();
-	
 	if (HasAuthority())
 	{
 		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
@@ -100,7 +94,11 @@ void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 		
 		Destroy();
 	}
-	else bHit = true;
+	else
+	{
+		Sphere->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		bHit = true;
+	}
 }
 
 
