@@ -57,6 +57,7 @@ void AAuraProjectile::OnHit()
 
 void AAuraProjectile::Destroyed()
 {
+	if (LoopingSoundComponent) LoopingSoundComponent->Stop();
 	if (!bHit && !HasAuthority())
 	{
 		OnHit();

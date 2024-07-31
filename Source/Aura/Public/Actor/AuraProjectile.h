@@ -43,6 +43,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USphereComponent> Sphere;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<USoundBase> LoopingSound;
+
 private:
 
 	UPROPERTY(EditDefaultsOnly)
@@ -55,9 +58,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> ImpactSound;
-
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> LoopingSound;
 	
 	UPROPERTY()
 	TObjectPtr<UAudioComponent> LoopingSoundComponent;
